@@ -1,0 +1,160 @@
+import elAlambiqueViajero.*
+test "luke viaja a algún lugar, aumentando su cantidad de viajes"{
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    assert.equals(1, luke.cuantosViajes())
+}
+test "luke viajo 1 vez, y fue a parís" {
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    assert.equals("Llavero Torre Eifel", luke.recuerdo())
+    assert.equals(1, luke.cuantosViajes())
+}
+
+test "luke viaja a bagdad, el recuerdo de dicho lugar cambia antes de su viaje, sumando 1 a sus viajes realizados" {
+    bagdad.recuerdo("Armas Masivas")
+    luke.viajar_Con_(bagdad, alambiqueVeloz)
+    assert.equals("Armas Masivas", luke.recuerdo())
+    assert.equals(1, luke.cuantosViajes())
+}
+
+test "luke viaja a las vegas, y consigue un recuerdo homenaje a Buenos Aires" {
+    lasVegas.homenajear(buenosAires)
+    luke.viajar_Con_(lasVegas, alambiqueVeloz)
+    assert.equals("Mate sin Yerba", luke.recuerdo())
+}
+
+test "luke viaja a las vegas, y consigue un recuerdo homenaje a parís" {
+    lasVegas.homenajear(paris)
+    luke.viajar_Con_(lasVegas, alambiqueVeloz)
+    assert.equals("Llavero Torre Eifel", luke.recuerdo())
+}
+
+test "Luke viaja a paris y le queda combustible para seguir viajando" {
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    assert.that(alambiqueVeloz.tieneCombustible())
+}
+
+/*
+test "Luke viaja a paris, quiere viajar_Con_ a bs , alambiqueVelozas pero no puede" {
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    assert.notEquals("Mate", luke.recuerdo())
+}
+*/
+
+test "Luke viaja 2 veces, quiere viajar a paris, pero no puede" {
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    luke.viajar_Con_(paris, alambiqueVeloz)
+    luke.viajar_Con_(buenosAires, alambiqueVeloz)
+    assert.notEquals("Llavero Torre Eifel", luke.recuerdo())
+}
+
+test "luke viaja con la Super Chatarra Especial 4 veces, haciendo que uno de sus cañones se vea inutilizado, teniendo ahora sólo 2 cañones" {
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    assert.equals(2, superChatarraEspecial.cuantosCañonesTiene())
+}
+
+test "luke viaja con la Super Chatarra Especial 4 veces, haciendo que uno de sus cañones se eche a perder, 
+ahora su consumo por viaje pasa de 15 a 10" {
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    luke.viajar_Con_(paris, superChatarraEspecial)
+    assert.equals(10, superChatarraEspecial.cuantoConsumePorViaje())
+}
+
+test "luke viaja con la antigualla blindada 1 vez, haciendo que su consumo por viaje disminuya de 10 a 9" {
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    assert.equals(9, antiguallaBlindada.cuantoConsumePorViaje())
+}
+
+test "luke viaja con la atigualla blindada 1 vez, haciendo que la velocidad del vehículo aumente en 20 unidades, el peso 
+de cada gangster, pasando de 80 a 100" {
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    assert.equals(100, antiguallaBlindada.cuantaVelocidadTiene())
+}
+
+test "luke viaja 6 veces con la antigualla blindada, haciendo que todos los gangsters que se encontraban en la misma 
+se bajen, aumentando así la velocidad al máximo, el cual es 180, sin poder aumentar más, aunque con 5 viajes ya sean 
+necesarios" {
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    assert.equals(180, antiguallaBlindada.cuantaVelocidadTiene())
+}
+
+test "luke viaja 6 veces con la antigualla blindada, haciendo que todos los gangsters que se encontraban en la misma 
+se bajen, aumentando así la velocidad al máximo, el cual es 180, sin poder aumentar más, aunque con 5 viajes ya sean 
+necesarios, haciendo que ya sea considerado veloz" {
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    assert.that(antiguallaBlindada.esRapido())
+}
+
+test "luke viaja 6 veces con la antigualla blindada, haciendo que todos los gangsters que se encontraban en la misma 
+se bajen, aumentando así la velocidad al máximo, el cual es 180, sin poder aumentar más, aunque con 5 viajes ya sean 
+necesarios, haciendo que su consumo por viaje sea el mínimo posible, 3" {
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    luke.viajar_Con_(bagdad, antiguallaBlindada)
+    assert.equals(3 , antiguallaBlindada.cuantoConsumePorViaje())
+}
+
+test "luke decide subirse en el Super Convertible, eligiendo que se convierta en la antigualla Blindada" {
+    luke.subirA(superConvertible)
+    superConvertible.convertirEn(antiguallaBlindada)
+    assert.equals(antiguallaBlindada, superConvertible.esElVehiculo())
+}
+
+test "luke decide subirse al Super Convertible, eligiendo que se convierta en la Antigualla Blindada, 
+bajando su consumo por viaje en 1 unidad luego de su primer viaje, dejandolo en 9" {
+    luke.subirA(superConvertible)
+    superConvertible.convertirEn(antiguallaBlindada)
+    luke.viajar_Con_(paris, superConvertible)
+    assert.equals(9, superConvertible.cuantoConsumePorViaje())
+}
+
+test "luke quiere viajar a Hong Kong con el Super Convertible convertido en la Antigualla Blindada, pero NO puede 
+debido a que su vehiculo no es lo suficientemente rápido" {
+    luke.subirA(superConvertible)
+    superConvertible.convertirEn(antiguallaBlindada)
+    luke.viajar_Con_(hongKong, superConvertible)
+    assert.notEquals("Estatuilla Dorada de Gran Buda", luke.recuerdo())
+}
+
+test "luke quiere viajar a Las Vegas con el Super Convertible convertido en la Super Chatarra Especial, consiguiendo un 
+recuerdo homenaje a Hong Kong" {
+    lasVegas.homenajear(hongKong)
+    luke.subirA(superConvertible)
+    superConvertible.convertirEn(superChatarraEspecial)
+    luke.viajar_Con_(lasVegas, superConvertible)
+    assert.equals("Estatuilla Dorada de Gran Buda", luke.recuerdo())
+}
+
+test "Luke viaja a Buenos Aires, pero el presidente de Argentina pasa a ser Leo, simbolizando que él se lleva el recuerdo 
+de un Mate CON Yerba" {
+    buenosAires.nombrarPresidente(leo)
+    luke.viajar_Con_(buenosAires, alambiqueVeloz)
+    assert.equals("Mate con Yerba", luke.recuerdo())
+}
+
+test "luke quiere viajar a Las Vegas, el cual está homenajeando a Hong Kong, con el Super Convertible convertido en la 
+Antigualla Blindada, pero NO puede ya que su vehículo no es lo suficientemente veloz" {
+    lasVegas.homenajear(hongKong)
+    luke.subirA(superConvertible)
+    superConvertible.convertirEn(antiguallaBlindada)
+    luke.viajar_Con_(lasVegas, superConvertible)
+    assert.notEquals("Estatuilla Dorada de Gran Buda", luke.recuerdo())
+}
